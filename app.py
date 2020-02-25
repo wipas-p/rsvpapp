@@ -5,6 +5,10 @@ import socket
 import os
 import json
 
+##
+user_name        = 'dbadmin'
+user_pass        = 'dbadmin'
+
 app = Flask(__name__)
 
 LINK=os.environ.get('LINK', "www.g-able.com")
@@ -16,6 +20,9 @@ COMPANY=os.environ.get('COMPANY', "G-Able Co.,Ltd.")
 MONGODB_HOST=os.environ.get('MONGODB_HOST', 'localhost')
 client = MongoClient(MONGODB_HOST, 27017)
 db = client.rsvpdata
+
+##
+post = { "_id": user_name, "last_login": "never", "user_pass": user_pass }
 
 class RSVP(object):
     """Simple Model class for RSVP"""
@@ -102,4 +109,4 @@ def api_rsvp(id):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
