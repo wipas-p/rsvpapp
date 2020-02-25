@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rsvp-deployment
+  labels:
+    app: rsvp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rsvp
+  template:
+    metadata:
+      labels:
+        app: rsvp
+    spec:
+      containers:
+      - name: rsvpapp
+        image: wipasp/rsvpapp
+        ports:
+        - containerPort: 5000
+        env:
+          - name: MONGODB_HOST
+            value: mongodb
+          - name: LINK
+            value: http://www.g-able.com
+          - name: TEXT1
+            value: G-Able
+          - name: TEXT2
+            value: App RSVP!!
+          - name: LOGO
+            value: ./static/g-able-300x100.png
+          - name: COMPANY
+            value: G-Able Co.,LTD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rsvp
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5000
+  selector:
+    app: rsvp
