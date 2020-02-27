@@ -1,0 +1,34 @@
+version: '3'
+services:
+ mongodb:
+   image: mongo:3.3   
+   expose:                 
+     - "27017"
+   volumes:
+     - db_data:/data/db
+   environment:    
+     MONGODB_DATABASE: rsvpdata
+     MONGO_INITDB_ROOT_USERNAME: root
+     MONGO_INITDB_ROOT_PASSWORD: password
+   networks:
+    - rsvpnet
+
+ web:
+   image: wipasp/rsvpapp
+   ports:
+    - "80:5000"
+   environment:
+    MONGODB_HOST: mongodb
+    LINK: http://www.g-able.com
+    TEXT1: G-Able
+    TEXT2: App RSVP!
+    LOGO: ./static/g-able-300x100.png
+    COMPANY: G-Able Co.,Ltd
+   networks:
+    - rsvpnet
+
+networks:
+  rsvpnet:
+
+volumes:
+   db_data:

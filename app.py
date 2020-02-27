@@ -6,8 +6,8 @@ import os
 import json
 
 ##
-user_name        = 'dbadmin'
-user_pass        = 'dbadmin'
+user_name = 'root'
+user_pass = 'password'
 
 app = Flask(__name__)
 
@@ -67,8 +67,8 @@ def rsvp():
     count = len(items)
     hostname = socket.gethostname()
     return render_template('profile.html', counter=count, hostname=hostname,\
-                           items=items, TEXT1=TEXT1, TEXT2=TEXT2, LOGO=LOGO,\
-                           COMPANY=COMPANY)
+        items=items, TEXT1=TEXT1, TEXT2=TEXT2, LOGO=LOGO,\
+        COMPANY=COMPANY)
 
 @app.route('/new', methods=['POST'])
 def new():
